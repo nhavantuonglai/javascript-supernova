@@ -1,7 +1,7 @@
 {
 	"name": "javascript-supernova",
-	"version": "1.0.2",
-	"description": "File and folder renamer (FFR) is a Python tool designed to automate the renaming of files and folders. It supports multiple renaming options, including date-based formats, size based formats, sequential numbering, adding custom characters, and random names.",
+	"version": "1.0.3",
+	"description": "Supernova is a JavaScript package that creates a visually striking loading overlay with a supernova animation effect.",
 	"main": "index.js",
 	"scripts": {
 		"start": "node index.js",

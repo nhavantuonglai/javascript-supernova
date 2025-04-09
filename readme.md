@@ -9,7 +9,7 @@ _Supernova is a JavaScript package that creates a visually striking loading over
 To install, use npm:
 
 ```
-npm install supernova
+npm install javascript-supernova
 ```
 
 No additional dependencies are required beyond a modern browser.
@@ -31,13 +31,13 @@ No additional dependencies are required beyond a modern browser.
 Example usage in HTML:
 
 ```
-<script src="node_modules/supernova/index.js"></script>
+<script src="node_modules/javascript-supernova/index.js"></script>
 ```
 
 Example usage in JavaScript:
 
 ```javascript
-const { initSupernovaLoading } = require('supernova');
+const { initSupernovaLoading } = require('javascript-supernova');
 initSupernovaLoading();
 ```
 
@@ -51,7 +51,7 @@ If you have any questions or suggestions, feel free to reach out for the fastest
 
 Don’t forget to star this repository if you find it useful.
 
-# Hiệu Ứng Tải Supernova
+# Hiệu ứng tải Supernova
 
 _Hiệu ứng tải Supernova là một gói JavaScript tạo ra một lớp phủ tải với hiệu ứng hoạt hình supernova bắt mắt. Nó bao gồm một ngôi sao nhấp nháy, các vòng tròn lan rộng và hiệu ứng hạt, lý tưởng để nâng cao trải nghiệm người dùng trong lúc tải trang hoặc chuyển đổi._
 
@@ -60,7 +60,7 @@ _Hiệu ứng tải Supernova là một gói JavaScript tạo ra một lớp ph�
 Để cài đặt, sử dụng npm:
 
 ```
-npm install supernova
+npm install javascript-supernova
 ```
 
 Không yêu cầu thêm thư viện phụ thuộc ngoài trình duyệt hiện đại.
@@ -82,13 +82,13 @@ Không yêu cầu thêm thư viện phụ thuộc ngoài trình duyệt hiện �
 Ví dụ sử dụng trong HTML:
 
 ```
-<script src="node_modules/supernova/index.js"></script>
+<script src="node_modules/javascript-supernova/index.js"></script>
 ```
 
 Ví dụ sử dụng trong JavaScript:
 
 ```
-const { initSupernovaLoading } = require('supernova');
+const { initSupernovaLoading } = require('javascript-supernova');
 initSupernovaLoading();
 ```
 
