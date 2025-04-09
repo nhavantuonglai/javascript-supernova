@@ -1,43 +1,115 @@
-const { spawn } = require('child_process');
-const path = require('path');
+function initSupernovaLoading() {
 
-function runMarkdownProcessor(args) {
-	return new Promise((resolve, reject) => {
-		const pythonPath = path.join(__dirname, 'index.py');
-		const pythonProcess = spawn('python', [pythonPath, ...args]);
+	const overlay = document.createElement('div');
+	overlay.id = 'loading-overlay';
+	overlay.innerHTML = `
+		<div class="supernova-container">
+			<div class="star"></div>
+			<div class="explosion-ring ring-1"></div>
+			<div class="explosion-ring ring-2"></div>
+			<div class="explosion-ring ring-3"></div>
+			<div class="particle-field"></div>
+		</div>
+	`;
+	document.body.appendChild(overlay);
 
-		let output = '';
-		let errorOutput = '';
+	const styleSheet = document.createElement('style');
+	styleSheet.textContent = `
+		#loading-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 9999;
+			background: #f8f3f0;
+			transition: opacity 0.1s ease;
+			overflow: hidden;
+		}
+		.supernova-container {
+			position: relative;
+			width: 300px;
+			height: 300px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.star {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			background: radial-gradient(circle, #ffffff 0%, #ff725e 40%, #ff4832 70%);
+			border-radius: 50%;
+			box-shadow: 0 0 30px #ff725e, 0 0 60px #ff4832;
+			z-index: 5;
+			animation: star-pulse 0.4s ease-in-out forwards;
+		}
+		.explosion-ring {
+			position: absolute;
+			border-radius: 50%;
+			border: 2px solid;
+			opacity: 0;
+			z-index: 4;
+			animation: ring-expand 0.5s ease-out forwards;
+		}
+		.ring-1 {
+			border-color: #ff725e;
+			box-shadow: 0 0 15px #ff725e;
+			animation-delay: 0.1s;
+		}
+		.ring-2 {
+			border-color: #ff8c73;
+			box-shadow: 0 0 10px #ff8c73;
+			animation-delay: 0.2s;
+		}
+		.ring-3 {
+			border-color: #ff4832;
+			box-shadow: 0 0 20px #ff4832;
+			animation-delay: 0.2s;
+		}
+		.particle-field {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			z-index: 3;
+			background-image: 
+				radial-gradient(1px 1px at 40px 60px, #ff725e, transparent),
+				radial-gradient(1px 1px at 80px 120px, #ff8c73, transparent),
+				radial-gradient(1px 1px at 120px 40px, #ff4832, transparent),
+				radial-gradient(1px 1px at 160px 180px, #ffb199, transparent);
+			opacity: 0;
+			animation: particles-appear 1.5s ease-out forwards 0.1s;
+		}
+		@keyframes star-pulse {
+			0% { transform: scale(1); opacity: 1; }
+			50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 60px #ff725e, 0 0 100px #ff4832; }
+			100% { transform: scale(0.1); opacity: 0; }
+		}
+		@keyframes ring-expand {
+			0% { width: 50px; height: 50px; opacity: 0.8; }
+			100% { width: 300px; height: 300px; opacity: 0; }
+		}
+		@keyframes particles-appear {
+			0% { opacity: 0; transform: scale(0.5); }
+			50% { opacity: 1; }
+			100% { opacity: 0.5; transform: scale(1.2); }
+		}
+	`;
+	document.head.appendChild(styleSheet);
 
-		pythonProcess.stdout.on('data', (data) => {
-			output += data.toString();
-		});
-
-		pythonProcess.stderr.on('data', (data) => {
-			errorOutput += data.toString();
-		});
-
-		pythonProcess.on('close', (code) => {
-			if (code === 0) {
-				resolve(output);
-			} else {
-				reject(new Error(`Process exited with code ${code}: ${errorOutput}`));
+	setTimeout(() => {
+		overlay.style.opacity = '0';
+		setTimeout(() => {
+			if (overlay && overlay.parentNode) {
+				overlay.parentNode.removeChild(overlay);
 			}
-		});
-	});
+		}, 300);
+	}, 1000);
 }
 
-async function processMarkdown(feature, directory, lineNumber, customInput) {
-	try {
-		const args = [feature, directory || '.', lineNumber || (feature === '1' ? '5' : '2')];
-		if (customInput) args.push(customInput);
-		const result = await runMarkdownProcessor(args);
-		console.log(result);
-		return result;
-	} catch (error) {
-		console.error(error.message);
-		throw error;
-	}
-}
+document.addEventListener('DOMContentLoaded', initSupernovaLoading);
 
-module.exports = { processMarkdown };
+module.exports = { initSupernovaLoading };
